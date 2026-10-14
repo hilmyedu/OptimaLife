@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IKIGAI & KAIZEN - Tactile Retro Tracker</title>
+
+  <!-- Google Fonts: VT323 & Share Tech Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* CUSTOM RETRO SKEUOMORPHIC UI STYLES BASED ON USER'S IMAGE */
+    :root {
+      --bg-cream: #efece6;
+      --panel-cream: #e5e0d8;
+      --panel-dark: #d8d2c6;
+      --text-main: #2b2927;
+      --red-main: #d93829;
+      --red-dark: #aa281c;
+      --red-shadow: #7a1a12;
+      --green-main: #6aa84f;
+      --green-dark: #4e8239;
+      --yellow-main: #e69138;
+      --blue-main: #6fa8dc;
+      --blue-dark: #4b80b2;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-main);
+      font-family: 'Share Tech Mono', monospace;
+      background-image: radial-gradient(#d1cbc1 1px, transparent 1px);
+      background-size: 16px 16px;
+    }
+
+    .font-retro {
+      font-family: 'VT323', monospace;
+      letter-spacing: 1px;
+    }
+
+    /* 3D Tactile Panels */
+    .retro-panel {
+      background: var(--panel-cream);
+      border: 3px solid #b8b1a4;
+      border-radius: 12px;
+      box-shadow: 
+        inset 2px 2px 0px rgba(255,255,255,0.8),
+        inset -2px -2px 0px rgba(0,0,0,0.15),
+        5px 7px 0px rgba(0,0,0,0.15);
+    }
+
+    .retro-panel-sunken {
+      background: #dfd9ce;
+      border: 3px solid #b0a99b;
+      border-radius: 8px;
+      box-shadow: 
+        inset 3px 3px 6px rgba(0,0,0,0.2),
+        inset -1px -1px 0px rgba(255,255,255,0.7);
+    }
+
+    /* Tactile Inset Inputs */
+    .retro-input {
+      background: #f7f5f0;
+      border: 2px solid #a39c8e;
+      border-radius: 6px;
+      color: #232120;
+      box-shadow: inset 2px 2px 4px rgba(0,0,0,0.2);
+      font-family: 'Share Tech Mono', monospace;
+      padding: 8px 12px;
+      outline: none;
+      transition: all 0.1s ease;
+    }
+
+    .retro-input:focus {
+      border-color: var(--red-main);
+      box-shadow: inset 2px 2px 4px rgba(217, 56, 41, 0.2), 0 0 0 2px rgba(217, 56, 41, 0.2);
+    }
+
+    /* 3D Extruded Buttons */
+    .btn-3d {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'VT323', monospace;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      font-weight: bold;
+      border-radius: 6px;
+      padding: 6px 16px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.05s ease;
+      text-shadow: 1px 1px 0px rgba(0,0,0,0.3);
+    }
+
+    /* Red Button */
+    .btn-3d-red {
+      background: linear-gradient(to bottom, #e04333, var(--red-main));
+      color: #ffffff;
+      border: 2px solid #941f14;
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        0 4px 0 #7a1a12,
+        0 6px 6px rgba(0,0,0,0.25);
+    }
+    .btn-3d-red:active {
+      transform: translateY(3px);
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        0 1px 0 #7a1a12,
+        0 2px 2px rgba(0,0,0,0.25);
+    }
+
+    /* Green Button (Hell Yeah) */
+    .btn-3d-green {
+      background: linear-gradient(to bottom, #82b366, var(--green-main));
+      color: #ffffff;
+      border: 2px solid #3c682a;
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        0 4px 0 #315422,
+        0 6px 6px rgba(0,0,0,0.25);
+    }
+    .btn-3d-green:active {
+      transform: translateY(3px);
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        0 1px 0 #315422,
+        0 2px 2px rgba(0,0,0,0.25);
+    }
+
+    /* Yellow Button */
+    .btn-3d-yellow {
+      background: linear-gradient(to bottom, #f1c232, var(--yellow-main));
+      color: #2b2927;
+      border: 2px solid #9e5d16;
+      text-shadow: none;
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.5),
+        0 4px 0 #7a460e,
+        0 6px 6px rgba(0,0,0,0.25);
+    }
+    .btn-3d-yellow:active {
+      transform: translateY(3px);
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.5),
+        0 1px 0 #7a460e,
+        0 2px 2px rgba(0,0,0,0.25);
+    }
+
+    /* Blue Button */
+    .btn-3d-blue {
+      background: linear-gradient(to bottom, #8cbbe6, var(--blue-main));
+      color: #ffffff;
+      border: 2px solid #315c85;
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        0 4px 0 #234564,
+        0 6px 6px rgba(0,0,0,0.25);
+    }
+    .btn-3d-blue:active {
+      transform: translateY(3px);
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        0 1px 0 #234564,
+        0 2px 2px rgba(0,0,0,0.25);
+    }
+
+    /* Beige/Neutral Tactile Button */
+    .btn-3d-neutral {
+      background: linear-gradient(to bottom, #f5f2eb, #d8d2c5);
+      color: #2b2927;
+      border: 2px solid #999182;
+      text-shadow: none;
+      box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.8),
+        0 4px 0 #787265,
+        0 6px 6px rgba(0,0,0,0.2);
+    }
+    .btn-3d-neutral:active, .btn-3d-neutral.active {
+      background: linear-gradient(to bottom, #d8d2c5, #c7c0b2);
+      transform: translateY(3px);
+      box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,0.2),
+        0 1px 0 #787265;
+    }
+
+    /* Retro Custom Slider */
+    input[type=range].retro-slider {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range].retro-slider:focus {
+      outline: none;
+    }
+    input[type=range].retro-slider::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 12px;
+      cursor: pointer;
+      background: #d0c8ba;
+      border-radius: 6px;
+      border: 2px solid #9e9687;
+      box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3);
+    }
+    input[type=range].retro-slider::-webkit-slider-thumb {
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #f05848, var(--red-main), var(--red-dark));
+      border: 2px solid #6b140d;
+      box-shadow: 0 3px 5px rgba(0,0,0,0.4);
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -7px;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #dfd9ce;
+      border-radius: 5px;
+      border: 1px solid #c2bbb0;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--red-main);
+      border-radius: 5px;
+      border: 2px solid #dfd9ce;
+    }
+  </style>
+</head>
+<body class="min-h-screen p-3 md:p-6 flex flex-col justify-between max-w-6xl mx-auto">
+
+  <!-- HEADER CONTROL PANEL -->
+  <header class="retro-panel p-4 mb-6 relative overflow-hidden">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- Title Block -->
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-lg bg-red-600 border-2 border-red-900 flex items-center justify-center text-white shadow-md">
+          <i data-lucide="compass" class="w-8 h-8"></i>
+        </div>
+        <div>
+          <h1 class="font-retro text-3xl md:text-4xl font-bold tracking-wider text-red-600 drop-shadow-sm leading-none">
+            IKIGAI & KAIZEN SYSTEM
+          </h1>
+          <p class="text-xs text-gray-600 font-semibold uppercase tracking-widest mt-1">
+            Continuous Improvement & Purpose Tracking Control Unit
+          </p>
+        </div>
+      </div>
+
+      <!-- Navigation & JSON Export/Import -->
+      <div class="flex flex-wrap items-center gap-2">
+        <nav class="flex flex-wrap justify-center gap-2">
+          <button id="tab-btn-ikigai" onclick="switchTab('ikigai')" class="btn-3d btn-3d-red active text-lg px-3 py-2 flex items-center gap-1">
+            <i data-lucide="target" class="w-4 h-4"></i> IKIGAI
+          </button>
+          <button id="tab-btn-kaizen" onclick="switchTab('kaizen')" class="btn-3d btn-3d-neutral text-lg px-3 py-2 flex items-center gap-1">
+            <i data-lucide="timer" class="w-4 h-4"></i> KAIZEN
+          </button>
+          <button id="tab-btn-log" onclick="switchTab('log')" class="btn-3d btn-3d-neutral text-lg px-3 py-2 flex items-center gap-1">
+            <i data-lucide="calendar" class="w-4 h-4"></i> LOG
+          </button>
+        </nav>
+        
+        <!-- JSON Export / Import Buttons -->
+     <!--    <div class="flex items-center gap-1 border-l-2 border-gray-300 pl-2">
+          <button onclick="exportDataJSON()" class="btn-3d btn-3d-yellow text-sm px-2.5 py-2 flex items-center gap-1" title="Export Data ke JSON">
+            <i data-lucide="download" class="w-4 h-4"></i> EXPORT
+          </button>
+          <label class="btn-3d btn-3d-blue text-sm px-2.5 py-2 flex items-center gap-1 cursor-pointer" title="Import Data dari JSON">
+            <i data-lucide="upload" class="w-4 h-4"></i> IMPORT
+            <input type="file" id="import-file-input" accept=".json" onchange="importDataJSON(event)" class="hidden">
+          </label>
+        </div> -->
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN INTERACTIVE DISPLAY AREA -->
+  <main class="flex-1">
+
+    <!-- ================= SECTION 1: IKIGAI DIAGRAM MODULE ================= -->
+    <section id="section-ikigai" class="space-y-6">
+      
+      <!-- Top Overview Panel -->
+      <div class="retro-panel p-5">
+        <div class="flex flex-col lg:flex-row justify-between items-center gap-4 mb-4">
+          <div>
+            <h2 class="font-retro text-2xl font-bold text-gray-800 flex items-center gap-2">
+              <i data-lucide="sparkles" class="text-red-500"></i> IKIGAI REFLECTION CONTROL PANEL
+            </h2>
+            <p class="text-xs text-gray-600">Isi item pada 4 pilar di bawah untuk menemukan titik potong Kebahagiaan & Tujuan Hidup Anda.</p>
+          </div>
+          
+          <!-- Balance Score Slider Display -->
+          <div class="retro-panel-sunken p-3 flex items-center gap-4 w-full lg:w-auto">
+            <span class="font-retro text-xl font-bold whitespace-nowrap">ALIGNMENT SCORE:</span>
+            <input type="range" min="0" max="100" value="75" id="ikigai-score-slider" class="retro-slider w-32 md:w-48" oninput="updateIkigaiScore(this.value)">
+            <span id="ikigai-score-text" class="font-retro text-2xl font-bold text-red-600 min-w-[50px]">75%</span>
+          </div>
+        </div>
+
+        <!-- 4 Pillars Input Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          
+          <!-- Pillar 1: LOVE -->
+          <div class="retro-panel-sunken p-3 flex flex-col justify-between border-t-4 border-t-red-500">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-retro text-lg font-bold text-red-600 flex items-center gap-1">
+                  <i data-lucide="heart" class="w-4 h-4"></i> 1. WHAT YOU LOVE
+                </span>
+                <span class="text-xs bg-red-200 text-red-800 px-2 py-0.5 rounded-full font-bold">PASSION</span>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">Apa yang membuatmu antusias & bahagia?</p>
+              <ul id="list-love" class="text-xs space-y-1 mb-3 max-h-32 overflow-y-auto pr-1"></ul>
+            </div>
+            <div class="flex gap-1 mt-2">
+              <input type="text" id="input-love" placeholder="Tambah hobi / minat..." class="retro-input text-xs w-full" onkeydown="if(event.key==='Enter')addItem('love')">
+              <button onclick="addItem('love')" class="btn-3d btn-3d-red text-xs px-2 py-1">+</button>
+            </div>
+          </div>
+
+          <!-- Pillar 2: GOOD AT -->
+          <div class="retro-panel-sunken p-3 flex flex-col justify-between border-t-4 border-yellow-500">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-retro text-lg font-bold text-yellow-600 flex items-center gap-1">
+                  <i data-lucide="award" class="w-4 h-4"></i> 2. GOOD AT
+                </span>
+                <span class="text-xs bg-yellow-200 text-yellow-800 px-2 py-0.5 rounded-full font-bold">SKILL</span>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">Keahlian & bakat apa yang kamu kuasai?</p>
+              <ul id="list-good" class="text-xs space-y-1 mb-3 max-h-32 overflow-y-auto pr-1"></ul>
+            </div>
+            <div class="flex gap-1 mt-2">
+              <input type="text" id="input-good" placeholder="Tambah keahlian..." class="retro-input text-xs w-full" onkeydown="if(event.key==='Enter')addItem('good')">
+              <button onclick="addItem('good')" class="btn-3d btn-3d-yellow text-xs px-2 py-1">+</button>
+            </div>
+          </div>
+
+          <!-- Pillar 3: NEEDS -->
+          <div class="retro-panel-sunken p-3 flex flex-col justify-between border-t-4 border-green-500">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-retro text-lg font-bold text-green-600 flex items-center gap-1">
+                  <i data-lucide="globe" class="w-4 h-4"></i> 3. WORLD NEEDS
+                </span>
+                <span class="text-xs bg-green-200 text-green-800 px-2 py-0.5 rounded-full font-bold">MISSION</span>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">Masalah dunia yang bisa kau bantu?</p>
+              <ul id="list-needs" class="text-xs space-y-1 mb-3 max-h-32 overflow-y-auto pr-1"></ul>
+            </div>
+            <div class="flex gap-1 mt-2">
+              <input type="text" id="input-needs" placeholder="Tambah kebutuhan..." class="retro-input text-xs w-full" onkeydown="if(event.key==='Enter')addItem('needs')">
+              <button onclick="addItem('needs')" class="btn-3d btn-3d-green text-xs px-2 py-1">+</button>
+            </div>
+          </div>
+
+          <!-- Pillar 4: PAID FOR -->
+          <div class="retro-panel-sunken p-3 flex flex-col justify-between border-t-4 border-blue-500">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-retro text-lg font-bold text-blue-600 flex items-center gap-1">
+                  <i data-lucide="dollar-sign" class="w-4 h-4"></i> 4. GET PAID FOR
+                </span>
+                <span class="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full font-bold">VALUE</span>
+              </div>
+              <p class="text-xs text-gray-500 mb-2">Pekerjaan bernilai ekonomis?</p>
+              <ul id="list-paid" class="text-xs space-y-1 mb-3 max-h-32 overflow-y-auto pr-1"></ul>
+            </div>
+            <div class="flex gap-1 mt-2">
+              <input type="text" id="input-paid" placeholder="Tambah penghasilan..." class="retro-input text-xs w-full" onkeydown="if(event.key==='Enter')addItem('paid')">
+              <button onclick="addItem('paid')" class="btn-3d btn-3d-blue text-xs px-2 py-1">+</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- VISUAL VENN DIAGRAM DISPLAY -->
+      <div class="retro-panel p-6 flex flex-col items-center">
+        <h3 class="font-retro text-2xl font-bold mb-2 text-center text-gray-800">
+          DYNAMIC IKIGAI INTERSECTION MAP
+        </h3>
+        <p class="text-xs text-gray-600 mb-6 text-center">Klik pada area mana pun di diagram untuk melihat titik temu aspek hidup Anda.</p>
+
+        <!-- Dynamic Venn Grid Visualization -->
+        <div class="relative w-full max-w-2xl aspect-square md:aspect-[4/3] bg-amber-50/50 rounded-2xl p-4 border-2 border-dashed border-amber-200 flex items-center justify-center overflow-hidden">
+          
+          <!-- Outer Circles -->
+          <div class="absolute top-[8%] left-[12%] w-[48%] h-[48%] rounded-full bg-red-400/20 border-2 border-red-500/60 flex flex-col items-start p-4 hover:bg-red-400/30 transition-all cursor-pointer" onclick="showIkigaiDetail('Love', 'LOVE')">
+            <span class="font-retro font-bold text-red-700 text-sm md:text-lg">LOVE</span>
+          </div>
+
+          <div class="absolute top-[8%] right-[12%] w-[48%] h-[48%] rounded-full bg-yellow-400/20 border-2 border-yellow-500/60 flex flex-col items-end p-4 hover:bg-yellow-400/30 transition-all cursor-pointer" onclick="showIkigaiDetail('Good', 'GOOD AT')">
+            <span class="font-retro font-bold text-yellow-800 text-sm md:text-lg">GOOD AT</span>
+          </div>
+
+          <div class="absolute bottom-[8%] left-[12%] w-[48%] h-[48%] rounded-full bg-green-400/20 border-2 border-green-500/60 flex flex-col justify-end p-4 hover:bg-green-400/30 transition-all cursor-pointer" onclick="showIkigaiDetail('Needs', 'WORLD NEEDS')">
+            <span class="font-retro font-bold text-green-800 text-sm md:text-lg">WORLD NEEDS</span>
+          </div>
+
+          <div class="absolute bottom-[8%] right-[12%] w-[48%] h-[48%] rounded-full bg-blue-400/20 border-2 border-blue-500/60 flex flex-col justify-end items-end p-4 hover:bg-blue-400/30 transition-all cursor-pointer" onclick="showIkigaiDetail('Paid', 'GET PAID FOR')">
+            <span class="font-retro font-bold text-blue-800 text-sm md:text-lg">PAID FOR</span>
+          </div>
+
+          <!-- Intersections Labels -->
+          <div class="absolute top-[20%] text-center px-2 py-1 bg-gradient-to-r from-red-100 to-yellow-100 border border-amber-300 rounded-md text-[10px] md:text-xs font-bold text-amber-900 shadow-sm cursor-pointer hover:scale-105" onclick="showIkigaiDetail('Passion', 'PASSION')">
+            🔥 PASSION
+          </div>
+
+          <div class="absolute left-[15%] text-center px-2 py-1 bg-gradient-to-r from-red-100 to-green-100 border border-green-300 rounded-md text-[10px] md:text-xs font-bold text-green-900 shadow-sm cursor-pointer hover:scale-105" onclick="showIkigaiDetail('Mission', 'MISSION')">
+            🌱 MISSION
+          </div>
+
+          <div class="absolute right-[15%] text-center px-2 py-1 bg-gradient-to-r from-yellow-100 to-blue-100 border border-blue-300 rounded-md text-[10px] md:text-xs font-bold text-blue-900 shadow-sm cursor-pointer hover:scale-105" onclick="showIkigaiDetail('Profession', 'PROFESSION')">
+            💼 PROFESSION
+          </div>
+
+          <div class="absolute bottom-[20%] text-center px-2 py-1 bg-gradient-to-r from-green-100 to-blue-100 border border-teal-300 rounded-md text-[10px] md:text-xs font-bold text-teal-900 shadow-sm cursor-pointer hover:scale-105" onclick="showIkigaiDetail('Vocation', 'VOCATION')">
+            🛠️ VOCATION
+          </div>
+
+          <!-- CORE CENTER: IKIGAI -->
+          <div class="absolute z-10 w-28 h-28 md:w-36 md:h-36 rounded-full bg-gradient-to-br from-red-500 via-amber-500 to-red-600 border-4 border-white shadow-xl flex flex-col items-center justify-center text-white cursor-pointer transform hover:scale-110 transition-transform" onclick="showIkigaiDetail('Ikigai', 'CORE IKIGAI')">
+            <i data-lucide="sun" class="w-6 h-6 md:w-8 md:h-8 animate-spin" style="animation-duration: 12s;"></i>
+            <span class="font-retro text-xl md:text-2xl font-bold tracking-widest mt-1">IKIGAI</span>
+            <span class="text-[9px] md:text-[10px] uppercase font-semibold text-amber-100">Center of Being</span>
+          </div>
+
+        </div>
+
+        <!-- Intersection Modal / Info Display Panel -->
+        <div id="ikigai-info-box" class="w-full mt-4 p-4 retro-panel-sunken flex flex-col items-center text-center">
+          <h4 id="ikigai-info-title" class="font-retro text-2xl font-bold text-red-600">KLIK DIAGRAM DI ATAS</h4>
+          <p id="ikigai-info-desc" class="text-xs text-gray-700 max-w-lg mt-1">Pilih salah satu lingkaran atau titik potong untuk mengeksplorasi data.</p>
+          <div id="ikigai-info-items" class="flex flex-wrap gap-2 justify-center mt-3"></div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ================= SECTION 2: KAIZEN TIMER & STUDY HABIT MODULE ================= -->
+    <section id="section-kaizen" class="space-y-6 hidden">
+      
+      <!-- Kaizen Banner & Principles -->
+      <div class="retro-panel p-5">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+          <div>
+            <h2 class="font-retro text-2xl font-bold text-gray-800 flex items-center gap-2">
+              <i data-lucide="zap" class="text-yellow-500"></i> KAIZEN 1-MINUTE DAILY STUDY METHOD
+            </h2>
+            <p class="text-xs text-gray-600 mt-1 max-w-2xl">
+              Lakukan aksi belajar kecil selama durasi pilihan. Saat waktu habis, alarm non-stop akan berbunyi hingga Anda memilih **HELL YEAH** atau **OH NO** dan mengisi alasan refleksi.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 bg-amber-100 border border-amber-300 p-2 rounded-lg text-xs font-bold text-amber-900">
+            <i data-lucide="flame" class="text-red-500 w-5 h-5"></i>
+            <span>STREAK: <strong id="streak-counter-display" class="text-red-600 text-lg font-retro">0 HARI</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Retro 3D Timer Interface Panel -->
+        <div class="retro-panel p-6 lg:col-span-2 flex flex-col items-center justify-between">
+          <div class="w-full flex justify-between items-center mb-4">
+            <span class="font-retro text-xl font-bold text-gray-700 flex items-center gap-1">
+              <i data-lucide="clock" class="w-5 h-5 text-red-600"></i> ANALOG DIGITAL TIMER MODULE
+            </span>
+            <span id="timer-status-badge" class="px-3 py-1 bg-gray-300 text-gray-800 text-xs font-bold rounded-full uppercase">READY</span>
+          </div>
+
+          <!-- Big Countdown Display -->
+          <div class="w-full my-6 p-6 retro-panel-sunken flex flex-col items-center justify-center bg-zinc-900 text-green-400 border-4 border-neutral-600 shadow-2xl rounded-xl">
+            <div id="timer-display" class="font-retro text-7xl md:text-9xl tracking-widest text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]">
+              01:00
+            </div>
+            <p id="active-task-label" class="text-xs font-mono text-gray-400 mt-2 uppercase tracking-widest text-center">
+              [ SIAP MEMULAI SESI KAIZEN ]
+            </p>
+          </div>
+
+          <!-- Time Preset Selector -->
+          <div class="flex flex-wrap justify-center gap-2 mb-6 w-full">
+            <button onclick="setTimerDuration(60)" class="btn-3d btn-3d-neutral text-xs px-3 py-1.5">1 MIN (KAIZEN)</button>
+            <button onclick="setTimerDuration(180)" class="btn-3d btn-3d-neutral text-xs px-3 py-1.5">3 MIN</button>
+            <button onclick="setTimerDuration(300)" class="btn-3d btn-3d-neutral text-xs px-3 py-1.5">5 MIN</button>
+            <button onclick="setTimerDuration(1500)" class="btn-3d btn-3d-neutral text-xs px-3 py-1.5">25 MIN (POMODORO)</button>
+          </div>
+
+          <!-- 3D Tactile Control Buttons -->
+          <div class="flex flex-wrap justify-center items-center gap-4 w-full">
+            <button id="btn-timer-start" onclick="toggleTimer()" class="btn-3d btn-3d-green text-xl px-8 py-3 flex items-center gap-2">
+              <i data-lucide="play" class="w-6 h-6 fill-current"></i> START
+            </button>
+            <button onclick="resetTimer()" class="btn-3d btn-3d-neutral text-xl px-6 py-3 flex items-center gap-2">
+              <i data-lucide="rotate-ccw" class="w-5 h-5"></i> RESET
+            </button>
+            <button onclick="promptReflection('HELL YEAH')" class="btn-3d btn-3d-green text-xl px-6 py-3 flex items-center gap-2">
+              <i data-lucide="check-circle" class="w-6 h-6"></i> HELL YEAH
+            </button>
+            <button onclick="promptReflection('OH NO')" class="btn-3d btn-3d-red text-xl px-6 py-3 flex items-center gap-2">
+              <i data-lucide="x-circle" class="w-6 h-6"></i> OH NO
+            </button>
+          </div>
+        </div>
+
+        <!-- Kaizen Micro-Habits Task Manager Panel -->
+        <div class="retro-panel p-5 flex flex-col justify-between">
+          <div>
+            <h3 class="font-retro text-xl font-bold mb-3 text-gray-800 flex items-center gap-2">
+              <i data-lucide="list-checks" class="text-red-600"></i> TARGET HABIT BELAJAR
+            </h3>
+            <p class="text-xs text-gray-600 mb-4">Pilih atau tambah tugas mikroskopis harian Anda.</p>
+
+            <!-- Add Habit Form -->
+            <div class="space-y-2 mb-4">
+              <input type="text" id="input-kaizen-task" placeholder="Contoh: Baca 1 halaman buku..." class="retro-input text-xs w-full" onkeydown="if(event.key==='Enter')addKaizenHabit()">
+              <button onclick="addKaizenHabit()" class="btn-3d btn-3d-red text-xs w-full py-2 flex items-center justify-center gap-1">
+                <i data-lucide="plus" class="w-4 h-4"></i> TAMBAH HABIT BARU
+              </button>
+            </div>
+
+            <!-- List of Habits -->
+            <div class="space-y-2 max-h-60 overflow-y-auto pr-1" id="kaizen-habits-list"></div>
+          </div>
+
+          <div class="retro-panel-sunken p-3 mt-4 text-xs text-gray-600">
+            <span class="font-bold block text-gray-800 mb-1">💡 Perhatian Alarm:</span>
+            Saat timer mencapai 00:00, alarm berulang non-stop akan berbunyi sampai Anda memilih status dan mengisi alasan refleksi!
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ================= SECTION 3: HABIT LOG & PROGRESS HISTORY ================= -->
+    <section id="section-log" class="space-y-6 hidden">
+      
+      <div class="retro-panel p-5">
+        <h2 class="font-retro text-2xl font-bold text-gray-800 mb-2 flex items-center gap-2">
+          <i data-lucide="activity" class="text-green-600"></i> DAILY LOG & PROGRESS TRACKER
+        </h2>
+        <p class="text-xs text-gray-600">Rekam jejak keberhasilan, kegagalan, dan alasan refleksi Kaizen Anda.</p>
+      </div>
+
+      <div class="retro-panel p-5">
+        <h3 class="font-retro text-xl font-bold text-gray-800 mb-3 flex items-center gap-2">
+          <i data-lucide="file-code" class="text-[#e74c3c]"></i> PENGATURAN FILE DATA (JSON)
+        </h3>
+        <p class="text-xs text-gray-600 mb-4">
+          Seluruh data Ikigai, Kaizen habits, dan riwayat log disimpan secara otomatis di browser (LocalStorage). Anda dapat mendownload file JSON untuk cadangan atau mengunggahnya ke perangkat lain.
+        </p>
+
+        <div class="flex flex-wrap gap-4 items-center">
+          <!-- Export Button -->
+          <button onclick="exportDataJSON()" class="btn-3d btn-3d-blue text-base px-6 py-2.5 flex items-center gap-2">
+            <i data-lucide="download" class="w-5 h-5"></i> EXPORT JSON (.JSON)
+          </button>
+
+          <!-- Import File Selector -->
+          <div class="flex items-center gap-2">
+            <label for="import-file-input" class="btn-3d btn-3d-yellow text-base px-6 py-2.5 flex items-center gap-2 cursor-pointer">
+              <i data-lucide="upload" class="w-5 h-5"></i> IMPORT JSON
+            </label>
+            <input type="file" id="import-file-input" accept=".json" class="hidden" onchange="importDataJSON(event)">
+          </div>
+
+          <!-- Reset All Data -->
+          <button onclick="resetAllData()" class="btn-3d btn-3d-neutral text-base px-4 py-2.5 text-red-600 flex items-center gap-1">
+            <i data-lucide="trash-2" class="w-4 h-4"></i> RESET DATA
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Summary Row -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        
+        <div class="retro-panel-sunken p-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-lg bg-green-500 text-white flex items-center justify-center font-bold text-xl shadow-md border border-green-700">✓</div>
+          <div>
+            <div class="text-xs text-gray-500 font-bold uppercase">Total Sesi Selesai</div>
+            <div id="stat-total-sessions" class="font-retro text-3xl font-bold text-green-700">0</div>
+          </div>
+        </div>
+
+        <div class="retro-panel-sunken p-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-lg bg-red-500 text-white flex items-center justify-center font-bold text-xl shadow-md border border-red-700">🔥</div>
+          <div>
+            <div class="text-xs text-gray-500 font-bold uppercase">Streak Tertinggi</div>
+            <div id="stat-max-streak" class="font-retro text-3xl font-bold text-red-600">0 HARI</div>
+          </div>
+        </div>
+
+        <div class="retro-panel-sunken p-4 flex items-center gap-4">
+          <div class="w-12 h-12 rounded-lg bg-blue-500 text-white flex items-center justify-center font-bold text-xl shadow-md border border-blue-700">⏱️</div>
+          <div>
+            <div class="text-xs text-gray-500 font-bold uppercase">Total Waktu Belajar</div>
+            <div id="stat-total-minutes" class="font-retro text-3xl font-bold text-blue-700">0 MENIT</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- History Table / Activity Feed -->
+      <div class="retro-panel p-5">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="font-retro text-xl font-bold text-gray-800">RIWAYAT & ALASAN REFLEKSI</h3>
+          <button onclick="clearHistory()" class="btn-3d btn-3d-neutral text-xs px-3 py-1 text-red-600">HAPUS LOG</button>
+        </div>
+
+        <div id="history-container" class="space-y-3 max-h-80 overflow-y-auto pr-1"></div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ================= REFLECTION MODAL FORM (WAJIB ALASAN) ================= -->
+  <div id="reflection-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="retro-panel p-6 w-full max-w-md bg-[#efece6] border-4 border-red-700 shadow-2xl">
+      <h3 id="reflection-modal-header" class="font-retro text-2xl font-bold text-red-600 mb-2 flex items-center gap-2">
+        <i data-lucide="message-square" class="w-6 h-6"></i> FORM REFLEKSI KAIZEN
+      </h3>
+      <p id="reflection-modal-subtitle" class="text-xs text-gray-700 mb-4">
+        Masukkan alasan atau catatan mengapa sesi ini sukses (Hell Yeah) atau terganggu (Oh No).
+      </p>
+
+      <div class="space-y-3 mb-4">
+        <div>
+          <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Catatan / Alasan Wajib:</label>
+          <textarea id="reflection-reason-input" rows="3" placeholder="Tuliskan refleksi singkat Anda di sini..." class="retro-input w-full text-xs resize-none"></textarea>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-2">
+        <button onclick="closeReflectionModal()" class="btn-3d btn-3d-neutral text-sm px-4 py-2">BATAL</button>
+        <button onclick="submitReflection()" class="btn-3d btn-3d-green text-sm px-6 py-2">SIMPAN & SELESAI</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RETRO FOOTER -->
+  <footer class="mt-8 text-center text-xs text-gray-500 py-3 border-t-2 border-gray-300 flex flex-col md:flex-row justify-between items-center gap-2">
+    <div>
+      <span class="font-retro text-sm font-bold text-gray-700">IKIGAI & KAIZEN TRACKER</span> &copy; 2026 Tactile Retro Edition
+    </div>
+    <div class="flex gap-4 text-gray-600">
+      <span>Continuous Alarm System</span>
+      <span>•</span>
+      <span>JSON Backup Ready</span>
+    </div>
+  </footer>
+
+  <!-- CUSTOM AUDIO SYNTHESIZER & ALARM ENGINE -->
+  <script>
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+    let continuousAlarmInterval = null;
+
+    function initAudio() {
+      if (!audioCtx) audioCtx = new AudioContext();
+    }
+
+    function playClickSound(freq = 400, type = 'sine', duration = 0.08) {
+      try {
+        initAudio();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    // Alarm berulang non-stop setiap 0.8 detik sampai pengguna memilih Hell Yeah / Oh No
+    function startContinuousAlarm() {
+      if (continuousAlarmInterval) return; // Sudah bunyi
+      try {
+        initAudio();
+        // Bunyi pertama langsung
+        triggerAlarmBeep();
+        // Berulang terus menerus
+        continuousAlarmInterval = setInterval(() => {
+          triggerAlarmBeep();
+        }, 800);
+      } catch(e) {}
+    }
+
+    function triggerAlarmBeep() {
+      try {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(880, now); // A5
+        osc.frequency.setValueAtTime(440, now + 0.15); // A4
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.35);
+      } catch(e) {}
+    }
+
+    function stopContinuousAlarm() {
+      if (continuousAlarmInterval) {
+        clearInterval(continuousAlarmInterval);
+        continuousAlarmInterval = null;
+      }
+    }
+
+    function playSuccessSound() {
+      try {
+        initAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(523.25, now);
+        osc.frequency.setValueAtTime(659.25, now + 0.1);
+        osc.frequency.setValueAtTime(783.99, now + 0.2);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.4);
+      } catch(e) {}
+    }
+
+    function playFailSound() {
+      try {
+        initAudio();
+        const now = audioCtx.currentTime;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.setValueAtTime(164.81, now + 0.15);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + 0.35);
+      } catch(e) {}
+    }
+  </script>
+
+  <!-- APPLICATION LOGIC & JSON IMPORT/EXPORT SCRIPT -->
+  <script>
+    let appData = {
+      ikigai: {
+        love: ["Membaca teknologi", "Menulis ide", "Desain UI"],
+        good: ["Problem solving", "Coding JavaScript", "Komunikasi"],
+        needs: ["Edukasi digital", "Aplikasi produktivitas"],
+        paid: ["Software Development", "Konsultasi IT"],
+        score: 75
+      },
+      kaizen: {
+        habits: [
+          { id: 1, title: "Baca 1 Halaman Dokumentasi", completedToday: false },
+          { id: 2, title: "Tulis 3 Kosakata Baru", completedToday: false },
+          { id: 3, title: "Latihan Pernapasan 1 Menit", completedToday: false }
+        ],
+        activeTaskId: 1,
+        streak: 3,
+        maxStreak: 5,
+        totalSessions: 12,
+        totalSeconds: 720,
+        logs: [
+          { date: "2026-10-14 08:00", task: "Baca 1 Halaman Dokumentasi", duration: "1 Min", status: "HELL YEAH", reason: "Fokus tinggi dan langsung dikerjakan pagi hari." },
+          { date: "2026-10-13 09:30", task: "Tulis 3 Kosakata Baru", duration: "1 Min", status: "HELL YEAH", reason: "Konsisten walau sibuk." }
+        ]
+      }
+    };
+
+    let pendingReflectionStatus = null; // 'HELL YEAH' or 'OH NO'
+
+    function loadData() {
+      const saved = localStorage.getItem('ikigai_kaizen_app_data');
+      if (saved) {
+        try {
+          appData = JSON.parse(saved);
+        } catch (e) { console.error('Failed to parse localStorage'); }
+      }
+    }
+
+    function saveData() {
+      localStorage.setItem('ikigai_kaizen_app_data', JSON.stringify(appData));
+    }
+
+    // JSON EXPORT
+    function exportDataJSON() {
+      playClickSound(600, 'sine', 0.08);
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `ikigai_kaizen_backup_${new Date().toISOString().split('T')[0]}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    // JSON IMPORT
+    function importDataJSON(event) {
+      const fileReader = new FileReader();
+      if (event.target.files[0]) {
+        fileReader.readAsText(event.target.files[0], "UTF-8");
+        fileReader.onload = function(e) {
+          try {
+            const parsed = JSON.parse(e.target.result);
+            if (parsed.ikigai && parsed.kaizen) {
+              appData = parsed;
+              saveData();
+              renderIkigaiLists();
+              renderKaizenHabits();
+              renderStatsAndHistory();
+              showIkigaiDetail('Ikigai', 'CORE IKIGAI');
+              alert("✔ Data berhasil di-import dari file JSON!");
+            } else {
+              alert("❌ Format file JSON tidak valid untuk aplikasi ini.");
+            }
+          } catch (error) {
+            alert("❌ Gagal membaca file JSON.");
+          }
+        };
+      }
+    }
+
+    // TAB SWITCHER
+    function switchTab(tabName) {
+      playClickSound(500, 'sine', 0.05);
+      const tabs = ['ikigai', 'kaizen', 'log'];
+      tabs.forEach(t => {
+        const sec = document.getElementById(`section-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (t === tabName) {
+          sec.classList.remove('hidden');
+          btn.classList.add('btn-3d-red', 'active');
+          btn.classList.remove('btn-3d-neutral');
+        } else {
+          sec.classList.add('hidden');
+          btn.classList.remove('btn-3d-red', 'active');
+          btn.classList.add('btn-3d-neutral');
+        }
+      });
+    }
+
+    // ================= IKIGAI LOGIC =================
+    function renderIkigaiLists() {
+      const pillars = ['love', 'good', 'needs', 'paid'];
+      pillars.forEach(pillar => {
+        const ul = document.getElementById(`list-${pillar}`);
+        ul.innerHTML = '';
+        appData.ikigai[pillar].forEach((item, index) => {
+          const li = document.createElement('li');
+          li.className = 'flex justify-between items-center bg-white/70 px-2 py-1 rounded border border-gray-300';
+          li.innerHTML = `
+            <span class="truncate">${item}</span>
+            <button onclick="removeItem('${pillar}', ${index})" class="text-red-600 hover:text-red-800 font-bold ml-1">×</button>
+          `;
+          ul.appendChild(li);
+        });
+      });
+      document.getElementById('ikigai-score-slider').value = appData.ikigai.score;
+      document.getElementById('ikigai-score-text').innerText = appData.ikigai.score + '%';
+    }
+
+    function addItem(pillar) {
+      const input = document.getElementById(`input-${pillar}`);
+      const val = input.value.trim();
+      if (val) {
+        playClickSound(600, 'square', 0.06);
+        appData.ikigai[pillar].push(val);
+        input.value = '';
+        saveData();
+        renderIkigaiLists();
+      }
+    }
+
+    function removeItem(pillar, index) {
+      playClickSound(300, 'square', 0.06);
+      appData.ikigai[pillar].splice(index, 1);
+      saveData();
+      renderIkigaiLists();
+    }
+
+    function updateIkigaiScore(val) {
+      appData.ikigai.score = val;
+      document.getElementById('ikigai-score-text').innerText = val + '%';
+      saveData();
+    }
+
+    function showIkigaiDetail(type, title) {
+      playClickSound(450, 'triangle', 0.08);
+      const titleEl = document.getElementById('ikigai-info-title');
+      const descEl = document.getElementById('ikigai-info-desc');
+      const itemsEl = document.getElementById('ikigai-info-items');
+
+      titleEl.innerText = title;
+      itemsEl.innerHTML = '';
+
+      let items = [];
+      let desc = '';
+
+      switch (type) {
+        case 'Love':
+          desc = 'Hal-hal yang Anda cintai dan nikmati.';
+          items = appData.ikigai.love;
+          break;
+        case 'Good':
+          desc = 'Keahlian teknis maupun softskill yang dikuasai.';
+          items = appData.ikigai.good;
+          break;
+        case 'Needs':
+          desc = 'Kebutuhan masyarakat atau solusi masalah.';
+          items = appData.ikigai.needs;
+          break;
+        case 'Paid':
+          desc = 'Aktivitas yang bernilai ekonomis.';
+          items = appData.ikigai.paid;
+          break;
+        case 'Passion':
+          desc = 'Titik temu antara LOVE + GOOD AT.';
+          items = [...appData.ikigai.love, ...appData.ikigai.good];
+          break;
+        case 'Mission':
+          desc = 'Titik temu antara LOVE + WORLD NEEDS.';
+          items = [...appData.ikigai.love, ...appData.ikigai.needs];
+          break;
+        case 'Profession':
+          desc = 'Titik temu antara GOOD AT + GET PAID FOR.';
+          items = [...appData.ikigai.good, ...appData.ikigai.paid];
+          break;
+        case 'Vocation':
+          desc = 'Titik temu antara WORLD NEEDS + GET PAID FOR.';
+          items = [...appData.ikigai.needs, ...appData.ikigai.paid];
+          break;
+        case 'Ikigai':
+          desc = 'CORE IKIGAI: Harmoni sempurna dari ke-4 aspek hidup Anda!';
+          items = [
+            ...appData.ikigai.love.slice(0, 2),
+            ...appData.ikigai.good.slice(0, 2),
+            ...appData.ikigai.needs.slice(0, 2),
+            ...appData.ikigai.paid.slice(0, 2)
+          ];
+          break;
+      }
+
+      descEl.innerText = desc;
+
+      if (items.length === 0) {
+        itemsEl.innerHTML = '<span class="text-xs text-gray-400 italic">Belum ada data pada pilar ini.</span>';
+      } else {
+        items.forEach(it => {
+          const badge = document.createElement('span');
+          badge.className = 'px-3 py-1 bg-amber-100 border border-amber-300 text-amber-900 rounded-full text-xs font-bold shadow-sm';
+          badge.innerText = it;
+          itemsEl.appendChild(badge);
+        });
+      }
+    }
+
+    // ================= KAIZEN TIMER LOGIC =================
+    let timerSeconds = 60;
+    let initialDuration = 60;
+    let timerInterval = null;
+    let isTimerRunning = false;
+
+    function updateTimerDisplay() {
+      const mins = Math.floor(timerSeconds / 60);
+      const secs = timerSeconds % 60;
+      document.getElementById('timer-display').innerText = 
+        `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    }
+
+    function setTimerDuration(seconds) {
+      playClickSound(500, 'sine', 0.05);
+      stopContinuousAlarm();
+      resetTimer();
+      timerSeconds = seconds;
+      initialDuration = seconds;
+      updateTimerDisplay();
+    }
+
+    function toggleTimer() {
+      playClickSound(650, 'square', 0.08);
+      const btn = document.getElementById('btn-timer-start');
+      const badge = document.getElementById('timer-status-badge');
+
+      if (isTimerRunning) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        btn.innerHTML = '<i data-lucide="play" class="w-6 h-6 fill-current"></i> START';
+        badge.innerText = 'PAUSED';
+        badge.className = 'px-3 py-1 bg-yellow-300 text-yellow-900 text-xs font-bold rounded-full uppercase';
+      } else {
+        isTimerRunning = true;
+        btn.innerHTML = '<i data-lucide="pause" class="w-6 h-6 fill-current"></i> PAUSE';
+        badge.innerText = 'RUNNING...';
+        badge.className = 'px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full uppercase animate-pulse';
+
+        timerInterval = setInterval(() => {
+          if (timerSeconds > 0) {
+            timerSeconds--;
+            updateTimerDisplay();
+          } else {
+            // TIME UP!
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            badge.innerText = 'TIME UP! ALARM!';
+            badge.className = 'px-3 py-1 bg-red-600 text-white text-xs font-bold rounded-full uppercase animate-bounce';
+            
+            // Start continuous alarm non-stop
+            startContinuousAlarm();
+          }
+        }, 1000);
+      }
+      lucide.createIcons();
+    }
+
+    function resetTimer() {
+      playClickSound(300, 'sine', 0.05);
+      clearInterval(timerInterval);
+      stopContinuousAlarm();
+      isTimerRunning = false;
+      timerSeconds = initialDuration;
+      updateTimerDisplay();
+      
+      const btn = document.getElementById('btn-timer-start');
+      const badge = document.getElementById('timer-status-badge');
+      btn.innerHTML = '<i data-lucide="play" class="w-6 h-6 fill-current"></i> START';
+      badge.innerText = 'READY';
+      badge.className = 'px-3 py-1 bg-gray-300 text-gray-800 text-xs font-bold rounded-full uppercase';
+      lucide.createIcons();
+    }
+
+    // Kaizen Habits Management
+    function renderKaizenHabits() {
+      const listEl = document.getElementById('kaizen-habits-list');
+      listEl.innerHTML = '';
+
+      appData.kaizen.habits.forEach(habit => {
+        const isSelected = habit.id === appData.kaizen.activeTaskId;
+        const div = document.createElement('div');
+        div.className = `p-3 rounded-lg border-2 flex items-center justify-between cursor-pointer transition-all ${
+          isSelected 
+            ? 'bg-red-50 border-red-500 shadow-md' 
+            : 'bg-white border-gray-300 hover:border-gray-400'
+        }`;
+        div.onclick = () => selectKaizenTask(habit.id);
+
+        div.innerHTML = `
+          <div class="flex items-center gap-2">
+            <input type="radio" name="kaizen_task" ${isSelected ? 'checked' : ''} class="accent-red-600">
+            <span class="text-xs font-bold ${habit.completedToday ? 'line-through text-gray-400' : 'text-gray-800'}">
+              ${habit.title}
+            </span>
+          </div>
+          <button onclick="event.stopPropagation(); deleteKaizenHabit(${habit.id})" class="text-gray-400 hover:text-red-600 text-xs font-bold">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+        `;
+        listEl.appendChild(div);
+      });
+
+      const activeTask = appData.kaizen.habits.find(h => h.id === appData.kaizen.activeTaskId);
+      const activeLabel = document.getElementById('active-task-label');
+      if (activeTask) {
+        activeLabel.innerText = `[ TARGET: ${activeTask.title.toUpperCase()} ]`;
+      } else {
+        activeLabel.innerText = '[ PILIH SEBUAH HABIT DARI LIST ]';
+      }
+
+      document.getElementById('streak-counter-display').innerText = `${appData.kaizen.streak} HARI`;
+      lucide.createIcons();
+    }
+
+    function selectKaizenTask(id) {
+      playClickSound(500, 'triangle', 0.05);
+      appData.kaizen.activeTaskId = id;
+      saveData();
+      renderKaizenHabits();
+    }
+
+    function addKaizenHabit() {
+      const input = document.getElementById('input-kaizen-task');
+      const val = input.value.trim();
+      if (val) {
+        playClickSound(600, 'square', 0.06);
+        const newHabit = {
+          id: Date.now(),
+          title: val,
+          completedToday: false
+        };
+        appData.kaizen.habits.push(newHabit);
+        appData.kaizen.activeTaskId = newHabit.id;
+        input.value = '';
+        saveData();
+        renderKaizenHabits();
+      }
+    }
+
+    function deleteKaizenHabit(id) {
+      playClickSound(300, 'square', 0.05);
+      appData.kaizen.habits = appData.kaizen.habits.filter(h => h.id !== id);
+      if (appData.kaizen.activeTaskId === id) {
+        appData.kaizen.activeTaskId = appData.kaizen.habits[0]?.id || null;
+      }
+      saveData();
+      renderKaizenHabits();
+    }
+
+    // ================= REFLECTION MODAL (Wajib Alasan & Hentikan Alarm) =================
+    function promptReflection(status) {
+      playClickSound(550, 'sine', 0.06);
+      pendingReflectionStatus = status;
+
+      const modal = document.getElementById('reflection-modal');
+      const header = document.getElementById('reflection-modal-header');
+      const reasonInput = document.getElementById('reflection-reason-input');
+      reasonInput.value = '';
+
+      if (status === 'HELL YEAH') {
+        header.innerHTML = '<i data-lucide="check-circle" class="w-6 h-6 text-green-600"></i> REFLEKSI: HELL YEAH (SUKSES)';
+      } else {
+        header.innerHTML = '<i data-lucide="x-circle" class="w-6 h-6 text-red-600"></i> REFLEKSI: OH NO (GAGAL/TERGANGGU)';
+      }
+
+      modal.classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeReflectionModal() {
+      playClickSound(300, 'sine', 0.05);
+      document.getElementById('reflection-modal').classList.add('hidden');
+    }
+
+    function submitReflection() {
+      const reasonInput = document.getElementById('reflection-reason-input');
+      const reasonText = reasonInput.value.trim();
+
+      if (!reasonText) {
+        alert('Mohon isi alasan atau catatan refleksi terlebih dahulu sebelum menyimpan!');
+        return;
+      }
+
+      // Hentikan alarm non-stop
+      stopContinuousAlarm();
+      document.getElementById('reflection-modal').classList.add('hidden');
+
+      const activeTask = appData.kaizen.habits.find(h => h.id === appData.kaizen.activeTaskId);
+      const taskTitle = activeTask ? activeTask.title : "Sesi Kaizen Belajar";
+      const nowStr = new Date().toISOString().replace('T', ' ').substring(0, 16);
+      const mins = Math.max(1, Math.round(initialDuration / 60));
+
+      if (pendingReflectionStatus === 'HELL YEAH') {
+        playSuccessSound();
+        if (activeTask) activeTask.completedToday = true;
+        appData.kaizen.streak += 1;
+        if (appData.kaizen.streak > appData.kaizen.maxStreak) {
+          appData.kaizen.maxStreak = appData.kaizen.streak;
+        }
+        appData.kaizen.totalSessions += 1;
+        appData.kaizen.totalSeconds += initialDuration;
+      } else {
+        playFailSound();
+        appData.kaizen.streak = 0;
+      }
+
+      appData.kaizen.logs.unshift({
+        date: nowStr,
+        task: taskTitle,
+        duration: pendingReflectionStatus === 'HELL YEAH' ? `${mins} Min` : 'Batal',
+        status: pendingReflectionStatus,
+        reason: reasonText
+      });
+
+      saveData();
+      resetTimer();
+      renderKaizenHabits();
+      renderStatsAndHistory();
+
+      alert(`✔ Sesi tercatat!\nStatus: ${pendingReflectionStatus}\nAlasan: ${reasonText}`);
+    }
+
+    // ================= STATS & LOGS RENDER =================
+    function renderStatsAndHistory() {
+      document.getElementById('stat-total-sessions').innerText = appData.kaizen.totalSessions;
+      document.getElementById('stat-max-streak').innerText = `${appData.kaizen.maxStreak} HARI`;
+      
+      const totalMins = Math.floor(appData.kaizen.totalSeconds / 60);
+      document.getElementById('stat-total-minutes').innerText = `${totalMins} MENIT`;
+
+      const container = document.getElementById('history-container');
+      container.innerHTML = '';
+
+      if (appData.kaizen.logs.length === 0) {
+        container.innerHTML = '<p class="text-xs text-gray-500 italic text-center py-4">Belum ada riwayat aktivitas.</p>';
+        return;
+      }
+
+      appData.kaizen.logs.forEach(log => {
+        const isSuccess = log.status === 'HELL YEAH';
+        const div = document.createElement('div');
+        div.className = `p-3 rounded-lg border-2 flex flex-col gap-1 text-xs ${
+          isSuccess ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'
+        }`;
+        
+        div.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="font-bold px-2 py-0.5 rounded text-[10px] ${
+                isSuccess ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+              }">
+                ${log.status}
+              </span>
+              <span class="font-bold text-gray-800">${log.task}</span>
+            </div>
+            <span class="font-mono font-bold ${isSuccess ? 'text-green-700' : 'text-red-700'}">
+              ${log.duration} • <span class="text-gray-500 text-[10px] font-normal">${log.date}</span>
+            </span>
+          </div>
+          <div class="mt-1 pt-1 border-t border-gray-200 text-gray-700 italic">
+            💬 Alasan/Refleksi: "${log.reason || 'Tidak ada catatan'}"
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function clearHistory() {
+      if (confirm('Apakah Anda yakin ingin menghapus seluruh log riwayat Kaizen?')) {
+        playClickSound(300, 'sine', 0.05);
+        appData.kaizen.logs = [];
+        saveData();
+        renderStatsAndHistory();
+      }
+    }
+
+    // INITIALIZATION
+    window.onload = function() {
+      loadData();
+      renderIkigaiLists();
+      renderKaizenHabits();
+      renderStatsAndHistory();
+      showIkigaiDetail('Ikigai', 'CORE IKIGAI');
+      lucide.createIcons();
+    };
+  </script>
+
+</body>
+</html>
